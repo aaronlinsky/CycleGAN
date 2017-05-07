@@ -8,6 +8,10 @@ util = paths.dofile('util/util.lua')
 content = paths.dofile('util/content_loss.lua')
 require 'image'
 require 'models.architectures'
+require 'os'
+
+print("Copying in existing model")
+os.execute('aws s3 cp s3://lua-training-linsky/checkpoints/horse2zebra_model/ ~/CycleGAN/checkpoints/horse2zebra_model/ --recursive --exclude "*" --include "latest*" --include "*.png" --include "*.txt"')
 
 -- load configuration file
 options = require 'options'
@@ -158,6 +162,7 @@ for epoch = 1, opt.niter+opt.niter_decay do
 
     -- save model at the end of epoch
     if epoch % opt.save_epoch_freq == 0 then
+        os.execute('aws s3 cp ~/CycleGAN/checkpoints/horse2zebra_model/ s3://lua-training-linsky/checkpoints/horse2zebra_model/ --recursive --exclude "*" --include "latest*" --include "*.png" --include "*.txt"')
         print(('saving the model (epoch %d, iters %d)'):format(epoch, counter))
         model:Save('latest', opt)
         model:Save(epoch, opt)
