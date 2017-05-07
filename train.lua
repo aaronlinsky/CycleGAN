@@ -86,8 +86,8 @@ plotUtil:Initialize(display_plot, opt.display_id, opt.name)
 function visualize_current_results()
   local visuals = model:GetCurrentVisuals(opt)
   for i,visual in ipairs(visuals) do
-    visualizer.disp_image(visual.img, opt.display_winsize,
-                          opt.display_id+i, opt.name .. ' ' .. visual.label)
+--    visualizer.disp_image(visual.img, opt.display_winsize,
+--                          opt.display_id+i, opt.name .. ' ' .. visual.label)
   end
 end
 
